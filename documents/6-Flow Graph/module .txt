@@ -4,73 +4,84 @@ module Authorization
 		begin
 
 			declare i = 0;
-			declare count = 5;
+			declare count = 5;      1
 			declare endBanTime;
-			declare userInfo;
-
+			declare userInfo; 
+                      2                 3
 			if(email.isEmpty() OR pass.isEmpty()) then
+			                    4
 			return errorMessage("Fields Cannot be empty");
-
+                        5
 			else if(i >= count) then
 			begin
+			               6
 				if(endBanTime.isEmpty()) then
+				             7
 					endBanTime = time() + 5000;
+					            8
 				else if(endBanTime < time()) then
+				      9
 					i = 0;
-					break;
+					break();
+			      10
 				end if
+				                         
 				return errorMessage("You can't login for a while");
+			 
 			end
-
 			else
-			begin
+			begin				11
 				userInfo = Database.getUser(email);
+							12						13
 					if(userInfo.isEmpty() OR userInfo.pass != pass) then
 					begin
-					
+									14
 						i++;
 						return errorMessage("Email or password is incorrect");
 						
 					end
 					else
 					begin
-					
+											15
 						Session.Set(email);
 						return welcomeMessage("Hello" + userInfo.name + "!");
 						
 					end
+					16
 					end if
 			end
-
+				17
 			end if
-		end
+
 	end procedure
 	
 	procedure Register(email, pass, confirmPass)
 	begin
-		
+				1					2					3
 		if(email.isEmpty() OR pass.isEmpty() OR confirmPass.isEmpty()) then
+								4	
 			return errorMessage("Fields Cannot be empty");
-			
+						5
 		else if(pass != confirmPass) then
+							6
 			return errorMessage("Passwords are not the same");
-			
+								7
 		else if(Database.getUser(email).notEmpty()) then
+									8
 			return errorMessage("Email exist in database");
 			
 		else
 		begin
-			
+							9
 			Database.AddToUserTable(email, pass);
 			Session.Set(email);
 			return welcomeMessage("Welcome to our service! Sign Up was successful");
 			
 		end
-		
+		   10
 		end if
 		
 	end
-	end procedure
 
 end module
 
