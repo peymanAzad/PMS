@@ -1,0 +1,324 @@
+module Authorization
+
+	procedure Login(email, pass)
+		begin
+
+			declare i = 0;
+			declare count = 5;
+			declare endBanTime;
+			declare userInfo;
+
+			if(email.isEmpty() OR pass.isEmpty()) then
+			return errorMessage("Fields Cannot be empty");
+
+			else if(i >= count) then
+			begin
+				if(endBanTime.isEmpty()) then
+					endBanTime = time() + 5000;
+				else if(endBanTime < time()) then
+					i = 0;
+					break;
+				end if
+				return errorMessage("You can't login for a while");
+			end
+
+			else
+			begin
+				userInfo = Database.getUser(email);
+					if(userInfo.isEmpty() OR userInfo.pass != pass) then
+					begin
+					
+						i++;
+						return errorMessage("Email or password is incorrect");
+						
+					end
+					else
+					begin
+					
+						Session.Set(email);
+						return welcomeMessage("Hello" + userInfo.name + "!");
+						
+					end
+					end if
+			end
+
+			end if
+		end
+	end procedure
+	
+	procedure Register(email, pass, confirmPass)
+	begin
+		
+		if(email.isEmpty() OR pass.isEmpty() OR confirmPass.isEmpty()) then
+			return errorMessage("Fields Cannot be empty");
+			
+		else if(pass != confirmPass) then
+			return errorMessage("Passwords are not the same");
+			
+		else if(Database.getUser(email).notEmpty()) then
+			return errorMessage("Email exist in database");
+			
+		else
+		begin
+			
+			Database.AddToUserTable(email, pass);
+			Session.Set(email);
+			return welcomeMessage("Welcome to our service! Sign Up was successful");
+			
+		end
+		
+		end if
+		
+	end
+	end procedure
+
+end module
+
+module Reservation
+
+	procedure Search(location, time)
+	begin
+				1
+		declare searchList;
+		declare availablePlaces;
+		searchList = Database.getNearLocations(location);
+						2
+		for each(place in searchList)
+								3
+			if(Database.checkPlaceAvailableNow(place, time)) then
+						4
+				availablePlaces.Add(place);
+				5
+			end if
+			6
+		end for each
+				7
+		return availablePlaces;
+		
+	end	
+	end procedure
+	
+	procedure GetServiceInfo(place, startTime, endTime)
+	begin
+			1
+		declare price;
+						2
+		if(Database.checkPlaceAvailable(place, startTime, endTime)) then
+						3
+				availablePlaces.Add(place);
+				price = calcilatePrice(place, startTime, endTime);
+				return array(place, price);
+		else 
+					4
+				return false;
+			5
+		end if
+		
+	end
+	end procedure
+	
+	procedure MakeReservation(place, startTime, endTime)
+	begin
+				1
+		declare parkService;
+		declare refId;
+						2
+		if(GetServiceInfo(place, startTime, endTime)) then
+			begin
+								3
+				parkService = GetServiceInfo(place, startTime, endTime);
+				refId = Payment.StartPay(parkService.price);
+								4
+				if(Payment.Verify(refId)) then
+								5
+					Database.AddReservation(place, startTime, endTime);
+				else
+								6
+					return errorMessage("error in payment");
+					7
+				end if
+			end
+		else
+				8
+			return errorMessage("Park Place is not available in your requested time range");
+			
+			9
+		end if
+		
+		
+	end
+	end procedure
+	
+	procedure CancelReservation(email, place)
+	begin
+			1
+		declare time;
+								2
+		if(User.OrderDetails(email, place).startTime > time()) then
+			begin
+						3
+				Payment.Refund(place, email);
+				Database.UpdateRecord("Reserve Status = Refunded");
+				return successMessage("Cancel Reservation was successful");
+			end
+		else
+					4
+			return errorMessage("You can't cancel this reservation");
+			5
+		end if
+		
+	end
+	end procedure
+
+end module
+
+module Payment
+
+	procedure StartPay(price)
+		begin
+					1
+			declare method = ReadUserSelectedPaymentMethod();
+			declare refId;
+					2
+			switch(method)
+			begin
+					3
+				case "wallet":
+					refId = payByWallet(price);
+				end case
+						4
+				case "creditCard":
+					refId = payByCreditCard(price);
+				end case
+			5
+			end
+			6
+			return refId;
+		
+		end
+	end procedure
+	
+	procedure PayByWallet(price)
+	begin
+				1
+		declare userBalance;
+		declare newBalance;
+		declare refId;
+		userBalance = User.GetCredit(session(email));
+					2
+		if(userBalance > price) then
+			
+			begin
+							3
+				newBalance = userBalance - price;
+				
+				Database.UpdateRecord("User Balance = newBalance")->where("User", "=", session(user);
+				
+				$refId = Database.AddPayment(session(user), price);
+				
+				return refId;
+				
+				
+			end
+			
+		else
+						4
+			return errorMessage("Balance is not enough");
+			5
+		end if
+	
+	end
+	end procedure
+	
+	procedure PayByCreditCard(price)
+	begin
+				1
+		declare refId;
+		RedirectUserToBank();
+		$refId = GetCallbackFromBank();
+		return refId;
+	
+	end
+	end procedure
+	
+	procedure Refund(place, email)
+	begin
+				1
+		declare userBalance;
+		declare newBalance;
+		declare refundAmount;
+		
+		refundAmount = CalculateRefundAmount(email, place);
+		
+		userBalance = User.GetCredit(session(email));
+		
+		newBalance = userBalance + refundAmount;
+		
+		Database.UpdateRecord("UserBalance = newBalance")->where("user", "=", email);
+		
+		
+	end
+	end procedure
+
+end module
+
+module User
+
+	procedure GetCredit(email)
+	begin
+		declare credit;
+		Database.ReadRecord("Balance")->where("user", "=", email);
+		return credit;
+	end
+	end procedure
+	
+	procedure OrderDetails(email, place)
+	begin
+	
+		declare info;
+		
+		info.startTime = Database.ReadRecord("startTime")->where("email", "=", email)->where("place", "=", place);
+		info.endTime = Database.ReadRecord("endTime")->where("email", "=", email)->where("place", "=", place);
+		info.price = Database.ReadRecord("price")->where("email", "=", email)->where("place", "=", place);
+		
+		return info;
+		
+	end
+	end procedure
+	
+	procedure EditProfile(newName, newLastName, newPhone, email)
+		begin
+				1
+			declare result;
+			result = Database.UpdateRecord("name = newName, lastName = newLastName, phone = newPhone")->where("user", "=", email);
+				2
+			if(result) then
+						3
+				return successMessage("Update Was successful");
+			else
+						4
+				return errorMessage("Error Occurred in updating profile, try again later");
+				5
+			end if
+			
+		end
+	end procedure
+	
+	procedure PostReport(email, report)
+		begin
+				1
+			declare result;
+			result = Database.AddRecord(email, report);
+				2
+			if(result) then
+							3
+				return successMessage("Report submit Was successful");
+			else
+									4
+				return errorMessage("Error Occurred in submitting report, try again later");
+				5
+			end if
+		end
+	end procedure
+
+end module
