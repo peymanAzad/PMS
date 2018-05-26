@@ -210,12 +210,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _parkings_parking_item_parking_item_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./parkings/parking-item/parking-item.component */ "./src/app/parkings/parking-item/parking-item.component.ts");
 /* harmony import */ var _parkings_parking_search_pipe__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./parkings/parking-search.pipe */ "./src/app/parkings/parking-search.pipe.ts");
 /* harmony import */ var _profile_updated_message_dialog_updated_message_dialog_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./profile/updated-message-dialog/updated-message-dialog.component */ "./src/app/profile/updated-message-dialog/updated-message-dialog.component.ts");
+/* harmony import */ var _main_main_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./main/main.component */ "./src/app/main/main.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -276,7 +278,8 @@ var AppModule = /** @class */ (function () {
                 _orders_order_sent_report_dialog_sent_report_dialog_component__WEBPACK_IMPORTED_MODULE_27__["SentReportDialogComponent"],
                 _parkings_parking_item_parking_item_component__WEBPACK_IMPORTED_MODULE_28__["ParkingItemComponent"],
                 _parkings_parking_search_pipe__WEBPACK_IMPORTED_MODULE_29__["ParkingSearchPipe"],
-                _profile_updated_message_dialog_updated_message_dialog_component__WEBPACK_IMPORTED_MODULE_30__["UpdatedMessageDialogComponent"]
+                _profile_updated_message_dialog_updated_message_dialog_component__WEBPACK_IMPORTED_MODULE_30__["UpdatedMessageDialogComponent"],
+                _main_main_component__WEBPACK_IMPORTED_MODULE_31__["MainComponent"]
             ],
             entryComponents: [_orders_order_confirm_delete_dialog_confirm_delete_dialog_component__WEBPACK_IMPORTED_MODULE_26__["ConfirmDeleteDialogComponent"], _orders_order_sent_report_dialog_sent_report_dialog_component__WEBPACK_IMPORTED_MODULE_27__["SentReportDialogComponent"], _profile_updated_message_dialog_updated_message_dialog_component__WEBPACK_IMPORTED_MODULE_30__["UpdatedMessageDialogComponent"]],
             imports: [
@@ -333,12 +336,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _parking_parking_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./parking/parking.component */ "./src/app/parking/parking.component.ts");
 /* harmony import */ var _register_register_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./register/register.component */ "./src/app/register/register.component.ts");
 /* harmony import */ var _auth_guard_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./auth-guard.service */ "./src/app/auth-guard.service.ts");
+/* harmony import */ var _main_main_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./main/main.component */ "./src/app/main/main.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -373,7 +378,8 @@ var routes = [
     { path: 'parkings', canActivate: [_auth_guard_service__WEBPACK_IMPORTED_MODULE_16__["AuthGuard"]], component: _parkings_parkings_component__WEBPACK_IMPORTED_MODULE_13__["ParkingsComponent"] },
     { path: 'parking', canActivate: [_auth_guard_service__WEBPACK_IMPORTED_MODULE_16__["AuthGuard"]], component: _parking_parking_component__WEBPACK_IMPORTED_MODULE_14__["ParkingComponent"] },
     { path: 'profile', canActivate: [_auth_guard_service__WEBPACK_IMPORTED_MODULE_16__["AuthGuard"]], component: _profile_profile_component__WEBPACK_IMPORTED_MODULE_11__["ProfileComponent"] },
-    { path: 'orders', canActivate: [_auth_guard_service__WEBPACK_IMPORTED_MODULE_16__["AuthGuard"]], component: _orders_orders_component__WEBPACK_IMPORTED_MODULE_12__["OrdersComponent"] }
+    { path: 'orders', canActivate: [_auth_guard_service__WEBPACK_IMPORTED_MODULE_16__["AuthGuard"]], component: _orders_orders_component__WEBPACK_IMPORTED_MODULE_12__["OrdersComponent"] },
+    { path: '', component: _main_main_component__WEBPACK_IMPORTED_MODULE_17__["MainComponent"] }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -592,7 +598,7 @@ var LocationComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".wrapper {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.wrapper > * {\r\n  width: 100%;\r\n}\r\n\r\n.error-msg{\r\n  margin-bottom: 1rem;\r\n}\r\n"
+module.exports = ".wrapper {\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n\r\n.wrapper > * {\r\n  width: 100%;\r\n}\r\n\r\n.error-msg{\r\n  margin-bottom: 1rem;\r\n}\r\n\r\nform{\r\n  margin-bottom: 1rem;\r\n}\r\n"
 
 /***/ }),
 
@@ -603,7 +609,7 @@ module.exports = ".wrapper {\r\n  display: flex;\r\n  flex-direction: column;\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n  <div class=\"col-md-8 col-lg-6 mx-auto\">\n    <mat-card class=\"card card-body\">\n      <h3 class=\"text-center\">Login Account</h3>\n      <form (ngSubmit)=\"onSubmit(frm)\" #frm=\"ngForm\">\n        <div class=\"wrapper\">\n          <mat-form-field>\n            <input name=\"email\" email type=\"email\" matInput placeholder=\"Email\" required ngModel #email=\"ngModel\">\n          </mat-form-field>\n          <small *ngIf=\"email.invalid && (email.dirty || email.touched)\"\n                 class=\"text-danger error-msg\">\n\n            <div *ngIf=\"email.errors.required\">\n              Email is required.\n            </div>\n            <div *ngIf=\"email.errors.email\">\n              Email is not valid.\n            </div>\n          </small>\n          <mat-form-field>\n            <input name=\"password\" type=\"password\" matInput placeholder=\"Password\" required ngModel #password=\"ngModel\">\n          </mat-form-field>\n          <small *ngIf=\"password.invalid && (password.dirty || password.touched)\"\n                 class=\"text-danger error-msg\">\n            <div *ngIf=\"password.errors.required\">\n              Password is required.\n            </div>\n          </small>\n          <ul *ngIf=\"errorMessages\">\n            <li class=\"text-danger\" *ngFor=\"let error of errorMessages\"><small>{{error}}</small></li>\n          </ul>\n        </div>\n        <button id=\"login\" class=\"btn btn-primary\" type=\"submit\" [disabled]=\"frm.invalid\">Login</button>\n      </form>\n    </mat-card>\n  </div>\n</div>\n"
+module.exports = "<div class=\"row\">\n  <div class=\"col-md-8 col-lg-6 mx-auto\">\n    <mat-card class=\"card card-body\">\n      <h3 class=\"text-center\">Login Account</h3>\n      <form (ngSubmit)=\"onSubmit(frm)\" #frm=\"ngForm\">\n        <div class=\"wrapper\">\n          <mat-form-field>\n            <input name=\"email\" email type=\"email\" matInput placeholder=\"Email\" required ngModel #email=\"ngModel\">\n          </mat-form-field>\n          <small *ngIf=\"email.invalid && (email.dirty || email.touched)\"\n                 class=\"text-danger error-msg\">\n\n            <div *ngIf=\"email.errors.required\">\n              Email is required.\n            </div>\n            <div *ngIf=\"email.errors.email\">\n              Email is not valid.\n            </div>\n          </small>\n          <mat-form-field>\n            <input name=\"password\" type=\"password\" matInput placeholder=\"Password\" required ngModel #password=\"ngModel\">\n          </mat-form-field>\n          <small *ngIf=\"password.invalid && (password.dirty || password.touched)\"\n                 class=\"text-danger error-msg\">\n            <div *ngIf=\"password.errors.required\">\n              Password is required.\n            </div>\n          </small>\n          <ul *ngIf=\"errorMessages\">\n            <li class=\"text-danger\" *ngFor=\"let error of errorMessages\"><small>{{error}}</small></li>\n          </ul>\n        </div>\n        <button id=\"login\" class=\"btn btn-primary\" type=\"submit\" [disabled]=\"frm.invalid\">Login</button>\n      </form>\n      <a routerLink=\"/register\">Don't have account? Register now</a>\n    </mat-card>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -658,6 +664,69 @@ var LogInComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_account_service__WEBPACK_IMPORTED_MODULE_1__["AccountService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], LogInComponent);
     return LogInComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/main/main.component.css":
+/*!*****************************************!*\
+  !*** ./src/app/main/main.component.css ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/main/main.component.html":
+/*!******************************************!*\
+  !*** ./src/app/main/main.component.html ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"jumbotron text-center\">\n  <h1>Park Management System</h1>\n  <p>Joy of Parking!</p>\n  <a class=\"btn btn-outline-dark\" routerLink=\"/login\">Get your park location now</a>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/main/main.component.ts":
+/*!****************************************!*\
+  !*** ./src/app/main/main.component.ts ***!
+  \****************************************/
+/*! exports provided: MainComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MainComponent", function() { return MainComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var MainComponent = /** @class */ (function () {
+    function MainComponent() {
+    }
+    MainComponent.prototype.ngOnInit = function () {
+    };
+    MainComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-main',
+            template: __webpack_require__(/*! ./main.component.html */ "./src/app/main/main.component.html"),
+            styles: [__webpack_require__(/*! ./main.component.css */ "./src/app/main/main.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], MainComponent);
+    return MainComponent;
 }());
 
 
@@ -2127,7 +2196,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <h4>{{parking.name}}</h4>\n  <p>{{parking.address}} #{{parking.numbers[1]}}</p>\n  Price: {{(parking.pricePerHour * (data.howLong.hour + data.howLong.minute / 60)) | currency }}\n</div>\n<hr>\n<router-outlet></router-outlet>\n"
+module.exports = "<div>\r\n  <h4>{{parking.name}}</h4>\r\n  <p>{{parking.address}} #{{parking.numbers[1]}}</p>\r\n  Price: {{(parking.pricePerHour * (data.howLong.hour + data.howLong.minute / 60)) | currency }}\r\n</div>\r\n<hr>\r\n<router-outlet></router-outlet>\r\n"
 
 /***/ }),
 
